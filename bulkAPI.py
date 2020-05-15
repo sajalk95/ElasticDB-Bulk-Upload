@@ -35,7 +35,7 @@ def main():
         [{'host': 'localhost', 'port': 9200}]
     )
 
-    if (client.indices.exists(index="job-docs-bulktest") != True):
+    if (client.indices.exists(index=index) != True):
         create_index(client, index)
 
     progress = tqdm.tqdm(unit="docs", total=number_of_docs)

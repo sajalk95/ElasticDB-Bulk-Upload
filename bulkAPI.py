@@ -9,12 +9,12 @@ DATASET_PATH = "./data_dev.py"
 
 def generate_actions(operationType, index):
     for doc in DATA:
-        Id = doc.pop('_id', None)
+        Id = doc['id']
         newDoc = {
             '_op_type': operationType,
             '_index': index,
             '_id': Id,
-            'doc': doc
+            '_source': doc
         }
         yield newDoc
 
@@ -28,20 +28,20 @@ def create_index(client, index):
 
 def main():
     number_of_docs = len(DATA)
-    index = "job-docs-bulktest"
-    operationType = 'update'
+    INDEX = "location-docs-bulk-test"
+    OPERATION_TYPE = 'update'
 
     client = Elasticsearch(
         [{'host': 'localhost', 'port': 9200}]
     )
 
-    if (client.indices.exists(index=index) != True):
-        create_index(client, index)
+    if (client.indices.exists(index=INDEX) == False):
+        create_index(client, INDEX)
 
     progress = tqdm.tqdm(unit="docs", total=number_of_docs)
     successes = 0
     for ok, action in streaming_bulk(
-        client=client, index="job-docs-bulktest", actions=generate_actions(operationType=operationType, index=index),
+        client=client, index=INDEX, actions=generate_actions(operationType=OPERATION_TYPE, index=INDEX),
     ):
         print(action)
         progress.update(1)

@@ -1,8 +1,8 @@
 import tqdm
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import streaming_bulk
-from data_dev import DATA
-from mappings import MAPPINGS
+from data_dev_loction import DATA
+from mappings_location import MAPPINGS
 
 DATASET_PATH = "./data_dev.py"
 
@@ -28,8 +28,8 @@ def create_index(client, index):
 
 def main():
     number_of_docs = len(DATA)
-    INDEX = "location-docs-bulk-test"
-    OPERATION_TYPE = 'update'
+    INDEX = "location-docs-dev"
+    OPERATION_TYPE = 'index'
 
     client = Elasticsearch(
         [{'host': 'localhost', 'port': 9200}]
@@ -43,10 +43,10 @@ def main():
     for ok, action in streaming_bulk(
         client=client, index=INDEX, actions=generate_actions(operationType=OPERATION_TYPE, index=INDEX),
     ):
-        print(action)
+        # print(action)
         progress.update(1)
         successes += ok
-    # print("Indexed %d/%d documents" % (successes, number_of_docs))
+    print("Indexed %d/%d documents" % (successes, number_of_docs))
 
 
 if __name__ == "__main__":

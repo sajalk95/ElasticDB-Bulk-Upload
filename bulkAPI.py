@@ -1,7 +1,7 @@
 import tqdm
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import streaming_bulk
-from data_dev_loction import DATA
+from data_dev import DATA
 from mappings_location import MAPPINGS
 
 DATASET_PATH = "./data_dev.py"

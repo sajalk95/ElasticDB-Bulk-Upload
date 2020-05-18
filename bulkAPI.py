@@ -46,7 +46,7 @@ def main():
         print(action)
         progress.update(1)
         successes += ok
-    print("Indexed %d/%d documents" % (successes, number_of_docs))
+    # print("Indexed %d/%d documents" % (successes, number_of_docs))
 
 
 if __name__ == "__main__":

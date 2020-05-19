@@ -32,7 +32,9 @@ def main():
     OPERATION_TYPE = 'index'
 
     client = Elasticsearch(
-        [{'host': 'localhost', 'port': 9200}]
+        'localhost',
+        http_auth=('elastic', 'password'),
+        port=9200,
     )
 
     if (client.indices.exists(index=INDEX) == False):

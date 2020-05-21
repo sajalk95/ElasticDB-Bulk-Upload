@@ -90,7 +90,7 @@ MAPPINGS = {
                 }
             },
             "pincode": {
-                "type": "long"
+                "type": "text"
             },
             "state": {
                 "type": "text",
